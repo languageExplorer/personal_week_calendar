@@ -11,9 +11,19 @@ private:
     day weekday;
     int hour = 0, minute = 0;
 
-
 public:
-    TimePoint(day& weekday,const int& hour, const int& minute);
+    TimePoint(day weekday, int hour, int minute);
+
+    int getMinute() const;
+    int getHour() const;
+    day getWeekday() const;
+
+    void setMinute(const int& minute);
+    void setHour(const int& hour);
+    void setWeekday(const day& weekday);
+
+    TimePoint operator+ (TimePoint&);
+    TimePoint operator- (TimePoint&);
 };
 
 
