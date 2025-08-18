@@ -1,5 +1,7 @@
 #include "time_point.h"
 #include <iostream>
+#include <format>
+#include <string>
 
 TimePoint::TimePoint(day weekday, int hour, int minute)
     : weekday(weekday), hour(hour), minute(minute) {
@@ -9,28 +11,28 @@ int TimePoint::getMinute() const { return minute; }
 int TimePoint::getHour() const { return hour; }
 TimePoint::day TimePoint::getWeekday() const { return weekday; }
 
-void TimePoint::setMinute(int minute) {
-    if (minute < 0 || minute >= 60) {
-        std::cout << "Invalid minute: " << minute << std::endl;
+void TimePoint::setMinute(int m) {
+    if (m < 0 || m >= 60) {
+        std::cout << "Invalid minute: " << m << std::endl;
         return;
     }
-    this->minute = minute;
+    this->minute = m;
 }
 
-void TimePoint::setHour(int hour) {
-    if (hour < 0 || hour >= 24) {
-        std::cout << "Invalid hour: " << hour << std::endl;
+void TimePoint::setHour(int h) {
+    if (h < 0 || h >= 24) {
+        std::cout << "Invalid hour: " << h << std::endl;
         return;
     }
-    this->hour = hour;
+    this->hour = h;
 }
 
-void TimePoint::setWeekday(day weekday) {
-    this->weekday = weekday;
+void TimePoint::setWeekday(day d) {
+    this->weekday = d;
 }
 
 
-TimePoint TimePoint::operator+(TimePoint &other) {
+TimePoint TimePoint::operator+(const TimePoint &other) const {
     int new_minute = this->minute + other.minute;
     int new_hour = this->hour + other.hour;
     day new_weekday = this->weekday;
@@ -51,7 +53,7 @@ TimePoint TimePoint::operator+(TimePoint &other) {
     return {new_weekday, new_hour, new_minute};
 }
 
-TimePoint TimePoint::operator-(TimePoint &other) {
+TimePoint TimePoint::operator-(const TimePoint &other) const {
     int new_minute = this->minute - other.minute;
     int new_hour = this->hour - other.hour;
     day new_weekday = this->weekday;
@@ -70,4 +72,23 @@ TimePoint TimePoint::operator-(TimePoint &other) {
         new_weekday = static_cast<day>(new_weekday - 1);
     }
     return {new_weekday, new_hour, new_minute};
+}
+
+std::string TimePoint::dayToString(day d) {
+    switch (d) {
+        case MONDAY: return "Monday";
+        case TUESDAY: return "Tuesday";
+        case WEDNESDAY: return "Wednesday";
+        case THURSDAY: return "Thursday";
+        case FRIDAY: return "Friday";
+        case SATURDAY: return "Saturday";
+        case SUNDAY: return "Sunday";
+        default: return "Invalid day";
+    }
+}
+
+std::ostream& operator<<(std::ostream& os, const TimePoint& tp) {
+    os << TimePoint::dayToString(tp.getWeekday()) <<
+        std::format("{:02}:{:02}", tp.getHour(), tp.getMinute());
+    return os;
 }

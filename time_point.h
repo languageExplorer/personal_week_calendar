@@ -1,30 +1,34 @@
 #ifndef PERSONAL_WEEK_CALENDAR_TIME_POINT_H
 #define PERSONAL_WEEK_CALENDAR_TIME_POINT_H
+#include <iosfwd>
 
 
 class TimePoint {
-private:
+public:
     enum day {
         MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
     };
 
+private:
     day weekday;
     int hour = 0, minute = 0;
 
 public:
     TimePoint(day weekday, int hour, int minute);
 
-    int getMinute() const;
-    int getHour() const;
-    day getWeekday() const;
+    [[nodiscard]] int getMinute() const;
+    [[nodiscard]] int getHour() const;
+    [[nodiscard]] day getWeekday() const;
 
-    void setMinute(int minute);
-    void setHour(int hour);
-    void setWeekday(day weekday);
+    void setMinute(int m);
+    void setHour(int h);
+    void setWeekday(day d);
 
-    TimePoint operator+ (TimePoint&);
-    TimePoint operator- (TimePoint&);
+    TimePoint operator+ (const TimePoint&) const;
+    TimePoint operator- (const TimePoint&) const;
+
+    static std::string dayToString(day d);
+    friend std::ostream& operator<<(std::ostream& os, const TimePoint& tp);
 };
-
 
 #endif //PERSONAL_WEEK_CALENDAR_TIME_POINT_H
