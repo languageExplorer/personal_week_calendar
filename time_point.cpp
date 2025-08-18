@@ -38,12 +38,12 @@ TimePoint TimePoint::operator+(const TimePoint &other) const {
     day new_weekday = this->weekday;
 
     if (new_minute >= 60) {
-        new_minute = new_minute / 60;
+        new_minute = new_minute - 60;
         new_hour++;
     }
 
     if (new_hour >= 24) {
-        new_hour = new_hour / 24;
+        new_hour = new_hour - 24;
         if (new_weekday == SUNDAY) {
             std::cout << "Cannot schedule past Sunday! Sunday 23:59 is to be returned";
             return {SUNDAY, 23, 59};
@@ -89,6 +89,6 @@ std::string TimePoint::dayToString(day d) {
 
 std::ostream& operator<<(std::ostream& os, const TimePoint& tp) {
     os << TimePoint::dayToString(tp.getWeekday()) <<
-        std::format("{:02}:{:02}", tp.getHour(), tp.getMinute());
+        std::format(" {:02}:{:02}", tp.getHour(), tp.getMinute());
     return os;
 }

@@ -24,8 +24,8 @@ public:
     void setHour(int h);
     void setWeekday(day d);
 
-    TimePoint operator+ (const TimePoint&) const;
-    TimePoint operator- (const TimePoint&) const;
+    [[nodiscard]] TimePoint operator+ (const TimePoint&) const;
+    [[nodiscard]] TimePoint operator- (const TimePoint&) const;
 
     static std::string dayToString(day d);
     friend std::ostream& operator<<(std::ostream& os, const TimePoint& tp);
