@@ -9,7 +9,7 @@ int TimePoint::getMinute() const { return minute; }
 int TimePoint::getHour() const { return hour; }
 TimePoint::day TimePoint::getWeekday() const { return weekday; }
 
-void TimePoint::setMinute(const int &minute) {
+void TimePoint::setMinute(int minute) {
     if (minute < 0 || minute >= 60) {
         std::cout << "Invalid minute: " << minute << std::endl;
         return;
@@ -17,7 +17,7 @@ void TimePoint::setMinute(const int &minute) {
     this->minute = minute;
 }
 
-void TimePoint::setHour(const int &hour) {
+void TimePoint::setHour(int hour) {
     if (hour < 0 || hour >= 24) {
         std::cout << "Invalid hour: " << hour << std::endl;
         return;
@@ -25,7 +25,7 @@ void TimePoint::setHour(const int &hour) {
     this->hour = hour;
 }
 
-void TimePoint::setWeekday(const day &weekday) {
+void TimePoint::setWeekday(day weekday) {
     this->weekday = weekday;
 }
 
@@ -44,7 +44,7 @@ TimePoint TimePoint::operator+(TimePoint &other) {
         new_hour = new_hour / 24;
         if (new_weekday == SUNDAY) {
             std::cout << "Cannot schedule past Sunday! Sunday 23:59 is to be returned";
-            return TimePoint(SUNDAY, 23, 59);
+            return {SUNDAY, 23, 59};
         }
         new_weekday = static_cast<day>(new_weekday + 1);
     }
@@ -65,7 +65,7 @@ TimePoint TimePoint::operator-(TimePoint &other) {
         new_hour = new_hour + 24;
         if (new_weekday == MONDAY) {
             std::cout << "Cannot schedule before Monday! Monday 00:00 is to be returned";
-            return TimePoint(MONDAY, 0, 0);
+            return {MONDAY, 0, 0};
         }
         new_weekday = static_cast<day>(new_weekday - 1);
     }

@@ -18,9 +18,9 @@ public:
     int getHour() const;
     day getWeekday() const;
 
-    void setMinute(const int& minute);
-    void setHour(const int& hour);
-    void setWeekday(const day& weekday);
+    void setMinute(int minute);
+    void setHour(int hour);
+    void setWeekday(day weekday);
 
     TimePoint operator+ (TimePoint&);
     TimePoint operator- (TimePoint&);
