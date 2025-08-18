@@ -7,4 +7,6 @@ include_directories(.)
 
 add_executable(personal_week_calendar
         src/TimePoint.cpp
-        include/TimePoint.h)
+        include/TimePoint.h
+        include/TimePeriod.h
+        src/TimePeriod.cpp)
